@@ -1,6 +1,4 @@
-
 <?php
-
 namespace shared\core;
 
 use PDO;
