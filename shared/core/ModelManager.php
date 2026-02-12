@@ -1,12 +1,18 @@
 <?php
 
 /**
- * Classe Model
- * Parent de tous les modèles
+ * Classe ModelManager
+ * Parent de tous les managers
  */
+
+namespace shared\core;  // ← AJOUTER le namespace
+
+use PDO;  
 class ModelManager {
-    protected $db;      // Connexion à la BDD
-    protected $table;   // Nom de la table (défini par les enfants)
+    
+    protected $db;           // Connexion à la BDD
+    protected $table;        // Nom de la table
+    protected $entityClass;  // Nom de la classe entity (ex: 'Artiste')
     
     public function __construct() {
         // Récupérer la connexion BDD
@@ -15,21 +21,34 @@ class ModelManager {
     
     /**
      * Récupérer tous les enregistrements
+     * @return array Tableau d'objets
      */
     public function getAll() {
         $sql = "SELECT * FROM {$this->table}";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll();
+        
+        // Transformer chaque ligne en objet entity
+        $entities = [];
+        foreach ($stmt->fetchAll() as $row) {
+            $entities[] = new $this->entityClass($row);
+        }
+        
+        return $entities;
     }
     
     /**
      * Récupérer un enregistrement par ID
+     * @return object|null
      */
     public function getById($id) {
         $sql = "SELECT * FROM {$this->table} WHERE id{$this->table} = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        
+        $row = $stmt->fetch();
+        
+        // Retourner un objet ou null
+        return $row ? new $this->entityClass($row) : null;
     }
     
     /**
@@ -69,3 +88,4 @@ class ModelManager {
         return $stmt->execute(['id' => $id]);
     }
 }
+?>

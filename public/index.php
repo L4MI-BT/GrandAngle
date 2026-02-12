@@ -1,5 +1,7 @@
 <?php
-require_once "connexionBdd.php";
+require_once __DIR__ . '/../shared/autoload.php';
+
+require_once __DIR__."/../shared/core/Database.php";
 
 if(isset($_GET['controller']) && $_GET['method']){
     $controller = $_GET['controller'];
@@ -9,4 +11,4 @@ if(isset($_GET['controller']) && $_GET['method']){
     $method = 'index';
 }
 
-require_once "views/layout.php";
+require_once "php/views/layout.php";

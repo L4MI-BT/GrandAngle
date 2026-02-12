@@ -16,7 +16,7 @@ function call($controller, $method){
 $controllerClassName = ucfirst($controller) . 'Controller';
 
 
-require_once "controllers/".$controller."_controller.php";
+require_once "php/controllers/".$controller."_controller.php";
 
 if(method_exists($controllerClassName, $method)){
     call($controller, $method);
