@@ -5,8 +5,7 @@ namespace shared\core;
 
 use PDO;
 use PDOException;
-require_once "shared/config/config.php";
-require_once "shared/config/database.php";
+require_once __DIR__."/../config/config.php";
 
 /**
  * Classe Database (Singleton)
