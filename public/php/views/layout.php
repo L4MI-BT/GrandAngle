@@ -6,7 +6,9 @@
     <title>Grand Angle</title>
 </head>
 <body>
-    <header></header>
+    <header>
+        <h1>Bonjour</h1>
+    </header>
     <main>
         <?php require_once "routes.php"; ?>
     </main>
